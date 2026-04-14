@@ -29,7 +29,7 @@ terraform {
   backend "s3" {
     bucket  = "vprofilebucket23"
     key     = "terraform.tfstate"
-    region  = "us-east-2"       # ✅ Fixed: was us-east-1, must match AWS_REGION in workflow
+    region  = "us-east-1"       # ✅ Fixed: was us-east-1, must match AWS_REGION in workflow
     encrypt = true               # ✅ Added: encrypts state file at rest in S3
   }
 
