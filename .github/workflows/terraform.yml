@@ -48,7 +48,9 @@ jobs:
 
       - name: Terraform format
         id: fmt
-        run: terraform fmt -check
+        run: |
+          terraform fmt -recursive          # ✅ auto-fixes all .tf files first
+          terraform fmt -check -recursive   # then fails loudly if anything is still wrong
 
       - name: Terraform validate
         id: validate
