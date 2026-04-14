@@ -20,6 +20,8 @@ env:
  BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE}}
  AWS_REGION: us-east-2
  EKS_CLUSTER: vprofile-eks
+ # Opt into Node.js 24 for all actions
+ FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
    terraform:
@@ -32,10 +34,10 @@ jobs:
 
      steps:
        - name: Checkout source code 
-         uses: actions/checkout@v4
+         uses: actions/checkout@v4          # ✅ latest major; Node 24 via env var above
 
        - name: Setup Terraform with specified version on the runner
-         uses: hashicorp/setup-terraform@v2
+         uses: hashicorp/setup-terraform@v3  # ✅ upgraded from v2 → v3 (Node 24 native)
          #with:
          #  terraform_version: 1.6.3
 
@@ -58,4 +60,4 @@ jobs:
 
        - name: Terraform plan status
          if: steps.plan.outcome == 'failure' 
-         run: exit 1     
+         run: exit 1
